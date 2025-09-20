@@ -2,7 +2,7 @@
 
 set -ex
 
-apk add zip
+# apk add zip
 
 # # cross compile windows version
 # cargo build --target x86_64-pc-windows-gnu --release
