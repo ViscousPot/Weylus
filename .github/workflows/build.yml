@@ -13,19 +13,18 @@ jobs:
     runs-on: ubuntu-latest
     container: docker://hhmhh/weylus_build:latest
     steps:
-      - name: Install CMake 3.5
+      - name: Install CMake 3.5 Dependencies
         run: |
           apt-get update
-          apt-get install -y wget
+          apt-get install -y \
+            wget \
+            libssl-dev \
+            libcurl4-openssl-dev \
+            libidn11 \
+            libarchive13
 
           # Download CMake
           wget https://cmake.org/files/v3.5/cmake-3.5.2-Linux-x86_64.tar.gz
-
-          # Remove existing CMake and related files
-          apt-get remove -y cmake
-          rm -rf /usr/local/bin/cmake*
-          rm -rf /usr/local/share/cmake*
-          rm -rf /usr/local/man/man1/cmake*
 
           # Extract to a clean directory
           mkdir -p /opt/cmake
@@ -36,12 +35,9 @@ jobs:
           ln -sf /opt/cmake/bin/ctest /usr/local/bin/ctest
           ln -sf /opt/cmake/bin/cpack /usr/local/bin/cpack
 
-          # Ensure man pages are correctly handled
-          mkdir -p /usr/local/man/man1
-          cp /opt/cmake/man/man1/cmake*.1 /usr/local/man/man1/ 2>/dev/null || true
-
-          # Verify CMake version
+          # Verify CMake version and dependencies
           cmake --version
+          ldd $(which cmake)
         shell: bash
 
       - uses: actions/checkout@v4
