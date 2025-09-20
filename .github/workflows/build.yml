@@ -11,7 +11,7 @@ on:
 jobs:
   build-docker:
     runs-on: ubuntu-latest
-    container: docker://hhmhh/weylus_build:latest
+    container: docker://hhmhh/weylus_build_alpine:latest
     steps:
     - uses: actions/checkout@v4
     - uses: actions/cache@v4
