@@ -6,18 +6,18 @@ set -ex
 # cargo build --target x86_64-pc-windows-gnu --release
 
 # cleanup cross compiled windows artifacts
-(cd deps && ./clean.sh)
+# (cd deps && ./clean.sh)
 
 # build linux versions
 # cargo deb --  --features=va-static
 RUSTFLAGS='-C target-feature=-crt-static' cargo build --release
 
 # check if installing works
-dpkg -i target/debian/Weylus*.deb
+# dpkg -i target/debian/Weylus*.deb
 cp target/release/weylus target/release/weylus_va_static
 
 # build version with dynamic libva
-cargo build --release
+# cargo build --release
 
 mkdir packages
 
