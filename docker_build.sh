@@ -12,7 +12,8 @@ apk add zip
 
 # build linux versions
 # cargo deb --  --features=va-static
-RUSTFLAGS='-C target-feature=-crt-static' cargo build --release
+# RUSTFLAGS='-C target-feature=-crt-static' 
+cargo build --release
 
 # check if installing works
 # dpkg -i target/debian/Weylus*.deb
