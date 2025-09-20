@@ -9,7 +9,8 @@ set -ex
 (cd deps && ./clean.sh)
 
 # build linux versions
-cargo deb --  --features=va-static
+# cargo deb --  --features=va-static
+RUSTFLAGS='-C target-feature=-crt-static' cargo build --release
 
 # check if installing works
 dpkg -i target/debian/Weylus*.deb
