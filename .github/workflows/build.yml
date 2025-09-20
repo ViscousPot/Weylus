@@ -17,14 +17,28 @@ jobs:
         run: |
           apt-get update
           apt-get install -y wget
+
+          # Download CMake
           wget https://cmake.org/files/v3.5/cmake-3.5.2-Linux-x86_64.tar.gz
-          tar -xzvf cmake-3.5.2-Linux-x86_64.tar.gz
 
-          # Remove existing CMake if it exists
+          # Remove existing CMake and related files
           apt-get remove -y cmake
+          rm -rf /usr/local/bin/cmake*
+          rm -rf /usr/local/share/cmake*
+          rm -rf /usr/local/man/man1/cmake*
 
-          # Copy CMake files with -r and force overwrite
-          cp -rf cmake-3.5.2-Linux-x86_64/* /usr/local/
+          # Extract to a clean directory
+          mkdir -p /opt/cmake
+          tar -xzvf cmake-3.5.2-Linux-x86_64.tar.gz -C /opt/cmake --strip-components=1
+
+          # Create symbolic links
+          ln -sf /opt/cmake/bin/cmake /usr/local/bin/cmake
+          ln -sf /opt/cmake/bin/ctest /usr/local/bin/ctest
+          ln -sf /opt/cmake/bin/cpack /usr/local/bin/cpack
+
+          # Ensure man pages are correctly handled
+          mkdir -p /usr/local/man/man1
+          cp /opt/cmake/man/man1/cmake*.1 /usr/local/man/man1/ 2>/dev/null || true
 
           # Verify CMake version
           cmake --version
