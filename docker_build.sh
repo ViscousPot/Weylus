@@ -32,7 +32,7 @@ PKGDIR="$PWD/packages"
 
 # package linux
 (
-  cp target/debian/Weylus*.deb "$PKGDIR/"
+  # cp target/debian/Weylus*.deb "$PKGDIR/"
   cp weylus.desktop target/release/
   cd target/release/
   zip weylus-linux.zip weylus weylus_va_static weylus.desktop
