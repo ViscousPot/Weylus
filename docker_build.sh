@@ -2,8 +2,8 @@
 
 set -ex
 
-# cross compile windows version
-cargo build --target x86_64-pc-windows-gnu --release
+# # cross compile windows version
+# cargo build --target x86_64-pc-windows-gnu --release
 
 # cleanup cross compiled windows artifacts
 (cd deps && ./clean.sh)
@@ -22,12 +22,12 @@ mkdir packages
 
 PKGDIR="$PWD/packages"
 
-# package windows
-(
-  cd target/x86_64-pc-windows-gnu/release/
-  zip weylus-windows.zip weylus.exe
-  mv weylus-windows.zip "$PKGDIR/"
-)
+# # package windows
+# (
+#   cd target/x86_64-pc-windows-gnu/release/
+#   zip weylus-windows.zip weylus.exe
+#   mv weylus-windows.zip "$PKGDIR/"
+# )
 
 # package linux
 (
